@@ -25,7 +25,7 @@
       --frost:        #F4F4F2;
       --white:        #FFFFFF;
     }
-   
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
@@ -246,6 +246,14 @@
       margin-bottom: 20px;
     }
 
+    .open-hint {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--concrete);
+      line-height: 1.5;
+    }
+    .open-hint strong { color: var(--orange-soft); }
+
     .cta-btn {
       display: inline-flex;
       align-items: center;
@@ -260,9 +268,10 @@
       text-decoration: none;
       letter-spacing: 0.02em;
       transition: background 0.15s;
-      pointer-events: none;
+      border: none;
+      cursor: pointer;
     }
-    .card-latest:hover .cta-btn { background: var(--orange-hover); }
+    .cta-btn:hover { background: var(--orange-hover); }
 
     /* ============================================================
        ARCHIVE LIST
@@ -489,20 +498,19 @@
 
   <p class="section-label">Latest Edition</p>
 
-  <a class="card-latest"
-     href="https://www.linkedin.com/posts/civicpulsehq_pulse-insights-03-activity-7439181192635215872-YJjm?utm_source=share&utm_medium=member_android&rcm=ACoAAFFxcjUBqVPSKhItlQRZlxMmBEHkYacJB4k"
-     target="_blank">
+  <div class="card-latest">
     <div class="card-latest-meta">
       <span class="badge-latest">Latest</span>
       <span class="card-edition">Edition 03</span>
     </div>
     <h2>Pulse Insights 03</h2>
     <p>The latest drop from CivicPulse — covering what's moving at the intersection of civil engineering and intelligent systems.</p>
-    <span class="cta-btn">
+    <button class="cta-btn" onclick="openLinkedIn('https://www.linkedin.com/posts/civicpulsehq_pulse-insights-03-activity-7439181192635215872-YJjm?utm_source=share&utm_medium=member_android&rcm=ACoAAFFxcjUBqVPSKhItlQRZlxMmBEHkYacJB4k')">
       Read on LinkedIn
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </span>
-  </a>
+    </button>
+    <p class="open-hint">↑ Tap, then choose <strong>"Open in browser"</strong> if prompted</p>
+  </div>
 
 
   <!-- ══════════════════════════════════════════
@@ -523,24 +531,24 @@
   <div class="archive-list">
 
     <!-- ── EDITION 02 ── -->
-    <a class="card-archive" href="https://www.linkedin.com/posts/civicpulsehq_pulse-insights-02-activity-7436599166077689856-vBBT?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFFxcjUBqVPSKhItlQRZlxMmBEHkYacJB4k" target="_blank">
+    <div class="card-archive" onclick="openLinkedIn('https://www.linkedin.com/posts/civicpulsehq_pulse-insights-02-activity-7436599166077689856-vBBT?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFFxcjUBqVPSKhItlQRZlxMmBEHkYacJB4k')">
       <div class="archive-num">02</div>
       <div class="archive-body">
         <div class="archive-title">Pulse Insights 02</div>
         <div class="archive-meta">Edition 02 · CivicPulse</div>
       </div>
       <div class="archive-arrow">→</div>
-    </a>
+    </div>
 
     <!-- ── EDITION 01 ── -->
-    <a class="card-archive" href="https://www.linkedin.com/posts/civicpulsehq_pulse-insights-01-activity-7434815869085626368-uYnr?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFFxcjUBqVPSKhItlQRZlxMmBEHkYacJB4k" target="_blank">
+    <div class="card-archive" onclick="openLinkedIn('https://www.linkedin.com/posts/civicpulsehq_pulse-insights-01-activity-7434815869085626368-uYnr?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFFxcjUBqVPSKhItlQRZlxMmBEHkYacJB4k')">
       <div class="archive-num">01</div>
       <div class="archive-body">
         <div class="archive-title">Pulse Insights 01</div>
         <div class="archive-meta">Edition 01 · CivicPulse</div>
       </div>
       <div class="archive-arrow">→</div>
-    </a>
+    </div>
 
   </div>
 
@@ -552,6 +560,24 @@
     <div class="footer-note">Engineering intelligence, on the ground.</div>
   </footer>
 
+  <script>
+    function openLinkedIn(url) {
+      // Try LinkedIn app deep link first
+      var appUrl = url.replace('https://www.linkedin.com', 'linkedin://');
+
+      // On mobile: try app, fall back to web after 1.5s
+      var fallback = setTimeout(function() {
+        window.location.href = url;
+      }, 1500);
+
+      // If page loses focus, app opened — cancel fallback
+      window.addEventListener('blur', function() {
+        clearTimeout(fallback);
+      }, { once: true });
+
+      window.location.href = appUrl;
+    }
+  </script>
 </div>
 </body>
 </html>

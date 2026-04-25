@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Pulse Insights · CivicPulse</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
     /* ============================================================
-       CIVICPULSE — PULSE INSIGHTS v2.0
-       With cover images, scroll animations, and interactive grid
+       CIVICPULSE — PULSE INSIGHTS v2.1
+       Mobile-first redesign
     ============================================================ */
     :root {
       --orange:       #E84E0F;
@@ -27,7 +27,7 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     body {
       background: var(--charcoal);
@@ -38,27 +38,15 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Blueprint grid overlay */
+    /* Blueprint grid overlay — subtle on mobile */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(30,58,76,0.2) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(30,58,76,0.2) 1px, transparent 1px);
+        linear-gradient(rgba(30,58,76,0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,58,76,0.15) 1px, transparent 1px);
       background-size: 32px 32px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Dot matrix corner motif */
-    body::after {
-      content: '';
-      position: fixed;
-      bottom: 0; right: 0;
-      width: 320px; height: 320px;
-      background-image: radial-gradient(circle, rgba(232,78,15,0.1) 1.5px, transparent 1.5px);
-      background-size: 20px 20px;
       pointer-events: none;
       z-index: 0;
     }
@@ -71,93 +59,92 @@
       z-index: 1;
       max-width: 1100px;
       margin: 0 auto;
-      padding: 48px 24px 96px;
+      padding: 24px 16px 64px;
     }
 
     /* ============================================================
        HEADER
     ============================================================ */
     header {
-      margin-bottom: 48px;
+      margin-bottom: 32px;
       animation: rise 0.8s cubic-bezier(0.22,1,0.36,1) both;
     }
 
     .brand-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 32px;
+      gap: 10px;
+      margin-bottom: 24px;
     }
 
     .logo-lockup {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       text-decoration: none;
     }
 
     .logo-wordmark {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 18px;
+      font-size: 16px;
       color: var(--white);
       letter-spacing: -0.3px;
     }
     .logo-wordmark span { color: var(--orange); }
 
     .logo-img {
-      height: 32px;
-      width: 32px;
+      height: 28px;
+      width: 28px;
       display: block;
-      border-radius: 8px;
-      object-fit: cover;
+      border-radius: 6px;
     }
 
     .tag {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.14em;
+      font-size: 9px;
+      letter-spacing: 0.12em;
       color: var(--orange);
       background: rgba(232,78,15,0.12);
       border: 1px solid rgba(232,78,15,0.25);
-      padding: 3px 10px;
+      padding: 2px 8px;
       border-radius: 3px;
       text-transform: uppercase;
     }
 
     .hero-label {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: 0.16em;
       color: var(--concrete);
       text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     h1 {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(36px, 6vw, 56px);
+      font-size: 32px;
       line-height: 1.05;
-      letter-spacing: -1px;
+      letter-spacing: -0.5px;
       color: var(--white);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     h1 span { color: var(--orange); }
 
     .hero-desc {
-      font-size: 16px;
+      font-size: 14px;
       line-height: 1.7;
       color: var(--concrete);
-      max-width: 520px;
+      max-width: 100%;
     }
 
     .rule {
-      width: 48px;
+      width: 40px;
       height: 3px;
       background: var(--orange);
       border-radius: 2px;
-      margin: 24px 0 0;
+      margin: 20px 0 0;
     }
 
     /* ============================================================
@@ -169,10 +156,10 @@
       letter-spacing: 0.16em;
       color: var(--concrete);
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
     .section-label::after {
       content: '';
@@ -182,136 +169,105 @@
     }
 
     /* ============================================================
-       LATEST EDITION — HERO CARD
+       LATEST EDITION — HERO CARD (Mobile-first)
     ============================================================ */
     .hero-card {
       position: relative;
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
-      margin-bottom: 64px;
+      margin-bottom: 40px;
       cursor: pointer;
-      transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
+      background: var(--blueprint);
+      border: 1px solid rgba(232,78,15,0.25);
       animation: rise 0.8s 0.15s cubic-bezier(0.22,1,0.36,1) both;
-      border: 1px solid rgba(232,78,15,0.2);
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
     }
-    .hero-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(232,78,15,0.3);
+    .hero-card:active {
+      transform: scale(0.98);
     }
 
     .hero-card-image {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 16 / 10;
       object-fit: cover;
       display: block;
-      transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
-    }
-    .hero-card:hover .hero-card-image {
-      transform: scale(1.03);
     }
 
-    .hero-card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(26,26,26,0.2) 0%,
-        rgba(26,26,26,0.5) 40%,
-        rgba(26,26,26,0.92) 100%
-      );
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 32px;
+    .hero-card-content {
+      padding: 20px 16px 16px;
+      position: relative;
     }
 
     .hero-card-badge {
-      position: absolute;
-      top: 20px;
-      left: 20px;
+      display: inline-block;
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 9px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       background: var(--orange);
       color: var(--white);
-      padding: 5px 12px;
-      border-radius: 4px;
+      padding: 4px 10px;
+      border-radius: 3px;
       font-weight: 600;
-    }
-
-    .hero-card-content {
-      position: relative;
-      z-index: 2;
+      margin-bottom: 12px;
     }
 
     .hero-card-edition {
       font-family: 'DM Mono', monospace;
-      font-size: 12px;
+      font-size: 11px;
       color: var(--orange-soft);
       letter-spacing: 0.1em;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
     }
 
     .hero-card h2 {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
-      font-size: clamp(24px, 4vw, 36px);
+      font-size: 22px;
       color: var(--white);
-      margin-bottom: 10px;
-      letter-spacing: -0.5px;
-      line-height: 1.15;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
     }
 
     .hero-card p {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--concrete);
       line-height: 1.6;
-      max-width: 560px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .hero-card-cta {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      gap: 8px;
       background: var(--orange);
       color: var(--white);
       font-family: 'Syne', sans-serif;
       font-weight: 700;
       font-size: 13px;
-      padding: 13px 24px;
+      padding: 14px 20px;
       border-radius: 6px;
       text-decoration: none;
       letter-spacing: 0.02em;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.2s;
       border: none;
       cursor: pointer;
+      width: 100%;
+      -webkit-tap-highlight-color: transparent;
     }
-    .hero-card-cta:hover {
-      background: var(--orange-hover);
-      transform: translateX(2px);
-    }
-    .hero-card-cta svg {
-      transition: transform 0.2s;
-    }
-    .hero-card-cta:hover svg {
-      transform: translateX(3px);
+    .hero-card-cta:active {
+      background: var(--orange-deep);
     }
 
     /* ============================================================
-       ARCHIVE GRID
+       ARCHIVE GRID (Mobile-first: single column)
     ============================================================ */
     .archive-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    @media (max-width: 700px) {
-      .archive-grid {
-        grid-template-columns: 1fr;
-      }
+      grid-template-columns: 1fr;
+      gap: 14px;
     }
 
     .archive-card {
@@ -320,26 +276,26 @@
       overflow: hidden;
       cursor: pointer;
       background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: border-color 0.2s, transform 0.2s;
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
+      -webkit-tap-highlight-color: transparent;
     }
     .archive-card.visible {
       opacity: 1;
       transform: translateY(0);
-      transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1), border-color 0.3s, box-shadow 0.3s;
+      transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.2s;
     }
-    .archive-card:hover {
-      border-color: rgba(232,78,15,0.35);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 32px rgba(0,0,0,0.3);
+    .archive-card:active {
+      transform: scale(0.98);
+      border-color: rgba(232,78,15,0.4);
     }
 
     .archive-card-image-wrap {
       position: relative;
       overflow: hidden;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 16 / 9;
     }
 
     .archive-card-image {
@@ -347,10 +303,6 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
-    }
-    .archive-card:hover .archive-card-image {
-      transform: scale(1.06);
     }
 
     .archive-card-image-overlay {
@@ -358,45 +310,45 @@
       inset: 0;
       background: linear-gradient(
         180deg,
-        rgba(26,26,26,0.1) 0%,
-        rgba(26,26,26,0.4) 60%,
-        rgba(26,26,26,0.85) 100%
+        rgba(26,26,26,0.05) 0%,
+        rgba(26,26,26,0.3) 50%,
+        rgba(26,26,26,0.75) 100%
       );
     }
 
     .archive-card-num {
       position: absolute;
-      top: 14px;
-      left: 14px;
+      top: 12px;
+      left: 12px;
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 400;
       color: var(--white);
-      background: rgba(232,78,15,0.85);
-      padding: 4px 10px;
-      border-radius: 4px;
+      background: rgba(232,78,15,0.9);
+      padding: 3px 8px;
+      border-radius: 3px;
       letter-spacing: 0.08em;
       z-index: 2;
     }
 
     .archive-card-content {
-      padding: 16px 18px 18px;
+      padding: 14px 14px 16px;
       position: relative;
     }
 
     .archive-card-title {
       font-family: 'Syne', sans-serif;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 15px;
       color: var(--white);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       line-height: 1.3;
       letter-spacing: -0.2px;
     }
 
     .archive-card-meta {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 9px;
       color: var(--concrete);
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -407,22 +359,20 @@
 
     .archive-card-arrow {
       color: var(--concrete);
-      font-size: 16px;
-      transition: color 0.2s, transform 0.2s;
+      font-size: 14px;
     }
-    .archive-card:hover .archive-card-arrow {
+    .archive-card:active .archive-card-arrow {
       color: var(--orange);
-      transform: translateX(3px);
     }
 
-    /* Stagger delays for scroll animation */
-    .archive-card:nth-child(1) { transition-delay: 0.05s; }
-    .archive-card:nth-child(2) { transition-delay: 0.1s; }
-    .archive-card:nth-child(3) { transition-delay: 0.15s; }
-    .archive-card:nth-child(4) { transition-delay: 0.2s; }
-    .archive-card:nth-child(5) { transition-delay: 0.25s; }
-    .archive-card:nth-child(6) { transition-delay: 0.3s; }
-    .archive-card:nth-child(7) { transition-delay: 0.35s; }
+    /* Stagger delays */
+    .archive-card:nth-child(1) { transition-delay: 0.04s; }
+    .archive-card:nth-child(2) { transition-delay: 0.08s; }
+    .archive-card:nth-child(3) { transition-delay: 0.12s; }
+    .archive-card:nth-child(4) { transition-delay: 0.16s; }
+    .archive-card:nth-child(5) { transition-delay: 0.20s; }
+    .archive-card:nth-child(6) { transition-delay: 0.24s; }
+    .archive-card:nth-child(7) { transition-delay: 0.28s; }
 
     /* ============================================================
        FOOTER
@@ -430,14 +380,13 @@
     footer {
       position: relative;
       z-index: 1;
-      margin-top: 80px;
-      padding-top: 32px;
+      margin-top: 48px;
+      padding-top: 24px;
       border-top: 1px solid rgba(255,255,255,0.06);
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
     }
 
     .footer-brand {
@@ -464,55 +413,175 @@
     }
 
     /* ============================================================
-       MOBILE
+       TABLET BREAKPOINT (min-width: 600px)
     ============================================================ */
-    @media (max-width: 600px) {
+    @media (min-width: 600px) {
       .container {
-        padding: 24px 16px 64px;
+        padding: 40px 24px 80px;
       }
 
       h1 {
-        font-size: 32px;
-        letter-spacing: -0.5px;
+        font-size: 42px;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
       }
+
       .hero-desc {
-        font-size: 14px;
-      }
-
-      .hero-card-overlay {
-        padding: 20px;
-      }
-      .hero-card h2 {
-        font-size: 22px;
-      }
-      .hero-card p {
-        font-size: 13px;
-      }
-      .hero-card-cta {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .archive-card-content {
-        padding: 14px 16px 16px;
-      }
-      .archive-card-title {
         font-size: 15px;
+        max-width: 520px;
+      }
+
+      .hero-card {
+        margin-bottom: 56px;
+      }
+
+      .hero-card-image {
+        aspect-ratio: 16 / 9;
+      }
+
+      .hero-card-content {
+        padding: 28px 24px 24px;
+      }
+
+      .hero-card h2 {
+        font-size: 28px;
+      }
+
+      .hero-card p {
+        font-size: 15px;
+        margin-bottom: 20px;
+      }
+
+      .hero-card-cta {
+        width: auto;
+        display: inline-flex;
+        padding: 13px 24px;
+      }
+
+      .archive-grid {
+        gap: 16px;
+      }
+
+      .archive-card-image-wrap {
+        aspect-ratio: 4 / 3;
+      }
+
+      .archive-card-title {
+        font-size: 16px;
       }
 
       footer {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-        margin-top: 48px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 64px;
+      }
+    }
+
+    /* ============================================================
+       DESKTOP BREAKPOINT (min-width: 900px)
+    ============================================================ */
+    @media (min-width: 900px) {
+      .container {
+        padding: 48px 32px 96px;
+      }
+
+      header {
+        margin-bottom: 48px;
+      }
+
+      .brand-row {
+        margin-bottom: 32px;
       }
 
       .logo-wordmark {
-        font-size: 16px;
+        font-size: 18px;
       }
+
+      .logo-img {
+        height: 32px;
+        width: 32px;
+      }
+
       .tag {
-        font-size: 9px;
-        padding: 2px 8px;
+        font-size: 10px;
+        padding: 3px 10px;
+      }
+
+      h1 {
+        font-size: 52px;
+      }
+
+      .hero-card {
+        margin-bottom: 64px;
+      }
+
+      .hero-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(232,78,15,0.3);
+      }
+
+      .hero-card-image {
+        transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+      }
+      .hero-card:hover .hero-card-image {
+        transform: scale(1.03);
+      }
+
+      .hero-card-content {
+        padding: 32px;
+      }
+
+      .hero-card h2 {
+        font-size: 32px;
+      }
+
+      .hero-card-cta {
+        transition: background 0.2s, transform 0.2s;
+      }
+      .hero-card-cta:hover {
+        background: var(--orange-hover);
+        transform: translateX(2px);
+      }
+      .hero-card-cta svg {
+        transition: transform 0.2s;
+      }
+      .hero-card-cta:hover svg {
+        transform: translateX(3px);
+      }
+
+      .archive-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .archive-card {
+        transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
+      }
+      .archive-card:hover {
+        border-color: rgba(232,78,15,0.35);
+        transform: translateY(-4px);
+        box-shadow: 0 16px 32px rgba(0,0,0,0.3);
+      }
+
+      .archive-card-image {
+        transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+      }
+      .archive-card:hover .archive-card-image {
+        transform: scale(1.06);
+      }
+
+      .archive-card-arrow {
+        transition: color 0.2s, transform 0.2s;
+      }
+      .archive-card:hover .archive-card-arrow {
+        color: var(--orange);
+        transform: translateX(3px);
+      }
+
+      footer {
+        margin-top: 80px;
+        padding-top: 32px;
       }
     }
   </style>
@@ -552,17 +621,15 @@
 
   <div class="hero-card" onclick="window.open('https://www.linkedin.com/posts/civicpulsehq_pulse-insights-08-activity-7453739588260560896-FkNN', '_blank')">
     <img class="hero-card-image" src="images/edition-08.png" alt="What Could Go Wrong? cover" loading="eager" />
-    <div class="hero-card-overlay">
+    <div class="hero-card-content">
       <span class="hero-card-badge">Latest</span>
-      <div class="hero-card-content">
-        <div class="hero-card-edition">Edition 08</div>
-        <h2>What Could Go Wrong?</h2>
-        <p>A construction risk management breakdown — seven risk categories, four response strategies, and why the risk register belongs at every project meeting.</p>
-        <span class="hero-card-cta">
-          Read on LinkedIn
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </span>
-      </div>
+      <div class="hero-card-edition">Edition 08</div>
+      <h2>What Could Go Wrong?</h2>
+      <p>A construction risk management breakdown — seven risk categories, four response strategies, and why the risk register belongs at every project meeting.</p>
+      <span class="hero-card-cta">
+        Read on LinkedIn
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
     </div>
   </div>
 
@@ -585,7 +652,7 @@
         <div class="archive-card-title">Jewel Changi Airport</div>
         <div class="archive-card-meta">
           <span>Edition 07 · CivicPulse</span>
-          <span class="archive-arrow">→</span>
+          <span class="archive-card-arrow">→</span>
         </div>
       </div>
     </div>
@@ -601,7 +668,7 @@
         <div class="archive-card-title">Beyond the Bid</div>
         <div class="archive-card-meta">
           <span>Edition 06 · CivicPulse</span>
-          <span class="archive-arrow">→</span>
+          <span class="archive-card-arrow">→</span>
         </div>
       </div>
     </div>
@@ -617,7 +684,7 @@
         <div class="archive-card-title">The Lowest Bid Trap</div>
         <div class="archive-card-meta">
           <span>Edition 05 · CivicPulse</span>
-          <span class="archive-arrow">→</span>
+          <span class="archive-card-arrow">→</span>
         </div>
       </div>
     </div>
@@ -633,7 +700,7 @@
         <div class="archive-card-title">Busan Cinema Center</div>
         <div class="archive-card-meta">
           <span>Edition 04 · CivicPulse</span>
-          <span class="archive-arrow">→</span>
+          <span class="archive-card-arrow">→</span>
         </div>
       </div>
     </div>
@@ -649,7 +716,7 @@
         <div class="archive-card-title">Lean Construction Decoded</div>
         <div class="archive-card-meta">
           <span>Edition 03 · CivicPulse</span>
-          <span class="archive-arrow">→</span>
+          <span class="archive-card-arrow">→</span>
         </div>
       </div>
     </div>
@@ -665,7 +732,7 @@
         <div class="archive-card-title">The Productivity Problem in Construction</div>
         <div class="archive-card-meta">
           <span>Edition 02 · CivicPulse</span>
-          <span class="archive-arrow">→</span>
+          <span class="archive-card-arrow">→</span>
         </div>
       </div>
     </div>
@@ -681,7 +748,7 @@
         <div class="archive-card-title">Atlassian Central, Australia</div>
         <div class="archive-card-meta">
           <span>Edition 01 · CivicPulse</span>
-          <span class="archive-arrow">→</span>
+          <span class="archive-card-arrow">→</span>
         </div>
       </div>
     </div>
@@ -704,14 +771,14 @@
           entry.target.classList.add('visible');
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
 
     document.querySelectorAll('.archive-card').forEach(card => {
       observer.observe(card);
     });
 
-    // Keyboard accessibility for archive cards
-    document.querySelectorAll('.archive-card').forEach(card => {
+    // Keyboard accessibility
+    document.querySelectorAll('.archive-card, .hero-card').forEach(card => {
       card.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') card.click();
       });
